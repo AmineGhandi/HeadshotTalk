@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900 font-sans;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer components {
+  .podcast-card {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-700 ease-out;
+    @apply opacity-0 translate-y-20;
+  }
+  
+  .podcast-card.animate-in {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  .podcast-card:hover {
+    @apply shadow-2xl scale-105;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
