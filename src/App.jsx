@@ -3,10 +3,13 @@ import './App.css';
 import PodcastCard from './components/PodcastCard';
 import GuestCarousel from './components/GuestCarousel';
 import NumberCard from './components/NumberCard';
+import LoadingScreen from './components/LoadingScreen';
+import LoadingAnimation from './components/LoadingAnimation';
 
 
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -57,6 +60,15 @@ function App() {
       document.body.style.overflow = 'unset';
     };
   }, [isModalOpen, isVideoModalOpen, isShowNotesModalOpen]);
+
+  // Simulate initial loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // Show loading for 2 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const podcastEpisodes = [
     {
@@ -125,6 +137,11 @@ function App() {
       }
     }
   ];
+
+  // Show loading screen while app is initializing
+  if (isLoading) {
+    return <LoadingScreen message="Welcome to HeadShot Talk" />;
+  }
 
   return (
     <>
@@ -591,6 +608,8 @@ function App() {
             </div>
           </div>
         </div>
+
+
       </main>
 
       {/* Footer */}
