@@ -8,7 +8,9 @@ const PodcastCard = ({
   episode, 
   duration, 
   date,
-  delay = 0 
+  delay = 0,
+  onPlayClick,
+  onShowNotesClick
 }) => {
   const [ref, isVisible] = useScrollAnimation();
 
@@ -66,13 +68,18 @@ const PodcastCard = ({
           
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
-            <button className="group bg-gradient-to-r from-podcast-orange to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 flex-1">
+            <button 
+              onClick={onPlayClick}
+              className="group bg-gradient-to-r from-podcast-orange to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center space-x-2 flex-1"
+            >
               <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
               </svg>
               <span>Play Episode</span>
             </button>
-            <button className="group border-2 border-gray-300 hover:border-podcast-orange text-gray-700 hover:text-podcast-orange px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:bg-orange-50 flex items-center justify-center space-x-2 flex-1">
+            <button 
+              onClick={onShowNotesClick}
+              className="group border-2 border-gray-300 hover:border-podcast-orange text-gray-700 hover:text-podcast-orange px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:bg-orange-50 flex items-center justify-center space-x-2 flex-1">
               <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                 <path fillRule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 102 0V3h4v1a1 1 0 102 0V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />

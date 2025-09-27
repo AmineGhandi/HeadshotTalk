@@ -8,18 +8,45 @@ import NumberCard from './components/NumberCard';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [isShowNotesModalOpen, setIsShowNotesModalOpen] = useState(false);
+  const [selectedEpisodeNotes, setSelectedEpisodeNotes] = useState(null);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const openVideoModal = (episode) => {
+    setSelectedVideo(episode);
+    setIsVideoModalOpen(true);
+  };
+  const closeVideoModal = () => {
+    setIsVideoModalOpen(false);
+    setSelectedVideo(null);
+  };
+  const openShowNotesModal = (episode) => {
+    setSelectedEpisodeNotes(episode);
+    setIsShowNotesModalOpen(true);
+  };
+  const closeShowNotesModal = () => {
+    setIsShowNotesModalOpen(false);
+    setSelectedEpisodeNotes(null);
+  };
 
   // Close modal on escape key
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
-        closeModal();
+        if (isVideoModalOpen) {
+          closeVideoModal();
+        } else if (isShowNotesModalOpen) {
+          closeShowNotesModal();
+        } else if (isModalOpen) {
+          closeModal();
+        }
       }
     };
-    if (isModalOpen) {
+    if (isModalOpen || isVideoModalOpen || isShowNotesModalOpen) {
       document.addEventListener('keydown', handleEscape);
       document.body.style.overflow = 'hidden';
     } else {
@@ -29,85 +56,156 @@ function App() {
       document.removeEventListener('keydown', handleEscape);
       document.body.style.overflow = 'unset';
     };
-  }, [isModalOpen]);
+  }, [isModalOpen, isVideoModalOpen, isShowNotesModalOpen]);
 
   const podcastEpisodes = [
     {
       id: 1,
-      title: "The Future of Headshot Photography",
-      description: "Dive deep into the evolving world of professional headshot photography. We explore the latest techniques, lighting setups, and how AI is changing the industry landscape. Join us as we discuss what makes a compelling headshot in today's digital age.",
+      title: "Fouadox",
+      description: "An in-depth conversation with Fouadox, exploring their journey in gaming and content creation, sharing insights about the Moroccan streaming scene and community building.",
       svgPath: "/headshot-talk.svg",
       episode: "001",
-      duration: "45 min",
+      duration: "64 min",
       date: "Dec 15, 2024",
-      delay: 0
+      delay: 0,
+      youtubeUrl: "https://www.youtube.com/watch?v=IUu8C-uIODE",
+      showNotes: {
+        topics: [
+          "Gaming journey and early influences",
+          "Building a streaming community in Morocco",
+          "Content creation strategies and tips",
+          "Challenges in the MENA gaming scene",
+          "Future plans and collaborations"
+        ],
+        keyMoments: [
+          { time: "00:05", topic: "Introduction and background" },
+          { time: "12:30", topic: "Starting the streaming journey" },
+          { time: "28:45", topic: "Community building insights" },
+          { time: "45:20", topic: "Gaming industry in Morocco" },
+          { time: "58:10", topic: "Future projects and goals" }
+        ],
+        resources: [
+          "Fouadox's Twitch Channel",
+          "Gaming setup recommendations",
+          "Streaming software guide"
+        ]
+      }
     },
     {
       id: 2,
-      title: "Building Your Personal Brand Through Photography",
-      description: "Learn how professional headshots can transform your personal brand and career prospects. We interview successful entrepreneurs and executives about their photography journey and the impact of great headshots on their professional success.",
+      title: "Hakkimma",
+      description: "Join us for an engaging discussion with Hakkimma about their experiences in the gaming world, content creation strategies, and the evolving landscape of esports in Morocco.",
       svgPath: "/headshotshot.svg",
       episode: "002",
-      duration: "38 min",
+      duration: "72 min",
       date: "Dec 8, 2024",
-      delay: 200
-    },
-    {
-      id: 3,
-      title: "Behind the Lens: Studio Setup Secrets",
-      description: "Get an exclusive look behind the scenes of a professional headshot studio. From equipment selection to client direction, we reveal the secrets that make headshot sessions successful and comfortable for everyone involved.",
-      svgPath: "/headshot-talk.svg",
-      episode: "003",
-      duration: "52 min",
-      date: "Dec 1, 2024",
-      delay: 400
-    },
-    {
-      id: 4,
-      title: "The Psychology of First Impressions",
-      description: "Explore the science behind first impressions and how headshots play a crucial role in professional networking. We discuss color psychology, facial expressions, and the subtle elements that make headshots memorable and effective.",
-      svgPath: "/headshotshot.svg",
-      episode: "004",
-      duration: "41 min",
-      date: "Nov 24, 2024",
-      delay: 600
-    },
-    {
-      id: 5,
-      title: "Digital vs Traditional: The Great Debate",
-      description: "Join our heated discussion about digital photography versus traditional film techniques in headshot photography. Industry veterans share their perspectives on quality, workflow, and the artistic differences between both approaches.",
-      svgPath: "/headshot-talk.svg",
-      episode: "005",
-      duration: "47 min",
-      date: "Nov 17, 2024",
-      delay: 800
+      delay: 200,
+      youtubeUrl: "https://www.youtube.com/watch?v=dLA7Q0pwiHU&t=263s",
+      showNotes: {
+        topics: [
+          "Esports career development",
+          "Professional gaming mindset",
+          "Training routines and discipline",
+          "Moroccan esports scene evolution",
+          "Balancing gaming and personal life"
+        ],
+        keyMoments: [
+          { time: "00:03", topic: "Welcome and introductions" },
+          { time: "08:15", topic: "Professional gaming journey" },
+          { time: "22:40", topic: "Training and improvement strategies" },
+          { time: "38:55", topic: "Esports in Morocco discussion" },
+          { time: "52:30", topic: "Mental health and gaming" },
+          { time: "65:45", topic: "Advice for aspiring gamers" }
+        ],
+        resources: [
+          "Hakkimma's gaming profiles",
+          "Esports training resources",
+          "Mental health in gaming guide"
+        ]
+      }
     }
   ];
 
   return (
     <>
       {/* Ultra Glass Effect Navbar */}
-       <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 backdrop-blur-[40px] bg-white/20 border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-3xl w-2/5">
-         <div className="px-6 sm:px-8 lg:px-10">
+       <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 backdrop-blur-[40px] bg-white/20 border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-3xl w-11/12 md:w-2/5">
+         <div className="px-4 sm:px-6 lg:px-10">
            <div className="flex justify-between items-center h-16">
              <div className="flex items-center space-x-4">
                <div className="w-10 h-10 bg-white/30 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/40 shadow-lg">
                  <img src="/headshot-talk.svg" alt="Logo" className="w-6 h-6" />
                </div>
-               
              </div>
+             
+             {/* Desktop Navigation */}
              <div className="hidden md:flex items-center space-x-1">
                <a href="#episodes" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">Episodes</a>
                <a href="#guests" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">Guests</a>
                <a href="#about" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">About</a>
                <a href="#contact" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">Contact</a>
              </div>
+             
+             {/* Desktop Subscribe Button */}
              <button 
                 onClick={openModal}
-                className="bg-podcast-orange/70 backdrop-blur-md hover:bg-podcast-orange/80 text-white px-6 py-2.5 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl border border-white/30 hover:scale-105"
+                className="hidden md:block bg-podcast-orange/70 backdrop-blur-md hover:bg-podcast-orange/80 text-white px-6 py-2.5 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl border border-white/30 hover:scale-105"
               >
                 Subscribe
               </button>
+              
+             {/* Mobile Menu Button */}
+             <button 
+               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+               className="md:hidden p-2 rounded-2xl bg-white/30 backdrop-blur-md border border-white/40 hover:bg-white/40 transition-all duration-300"
+               aria-label="Toggle mobile menu"
+             >
+               <div className="w-6 h-6 flex flex-col justify-center items-center">
+                 <span className={`block w-5 h-0.5 bg-gray-800 transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
+                 <span className={`block w-5 h-0.5 bg-gray-800 mt-1 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+                 <span className={`block w-5 h-0.5 bg-gray-800 mt-1 transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
+               </div>
+             </button>
+           </div>
+           
+           {/* Mobile Menu */}
+           <div className={`md:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
+             <div className="py-4 space-y-2 border-t border-white/30 mt-4">
+               <a 
+                 href="#episodes" 
+                 className="block text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-3 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth"
+                 onClick={() => setIsMobileMenuOpen(false)}
+               >
+                 Episodes
+               </a>
+               <a 
+                 href="#guests" 
+                 className="block text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-3 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth"
+                 onClick={() => setIsMobileMenuOpen(false)}
+               >
+                 Guests
+               </a>
+               <a 
+                 href="#about" 
+                 className="block text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-3 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth"
+                 onClick={() => setIsMobileMenuOpen(false)}
+               >
+                 About
+               </a>
+               <a 
+                 href="#contact" 
+                 className="block text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-3 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth"
+                 onClick={() => setIsMobileMenuOpen(false)}
+               >
+                 Contact
+               </a>
+               <button 
+                 onClick={() => { openModal(); setIsMobileMenuOpen(false); }}
+                 className="w-full bg-podcast-orange/70 backdrop-blur-md hover:bg-podcast-orange/80 text-white px-6 py-3 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl border border-white/30 mt-4"
+               >
+                 Subscribe
+               </button>
+             </div>
            </div>
          </div>
        </nav>
@@ -227,7 +325,7 @@ function App() {
               className="w-32 h-32 md:w-48 md:h-48 mx-auto mb-8 drop-shadow-lg"
             />
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-16 leading-relaxed">
-              The ultimate podcast for professional photographers, entrepreneurs, and anyone looking to master the art of headshot photography
+              HeadShot Talk is a Moroccan podcast that spotlights the local gaming & esports scene streamed live and IRL so chat can jump in with real questions, then edited for YouTube, Shorts, Reels, and more. Hosted by Tufita in partnership with One More Esports.
             </p>
           </div>
 
@@ -261,58 +359,58 @@ function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-             {/* Total Downloads */}
+             {/* Total Community Reach */}
              <NumberCard
-               number={250000}
-               label="Total Downloads"
+               number={9000}
+               label="Total Community Reach"
                suffix="+"
                bgColor="bg-gradient-to-br from-orange-50 to-orange-100"
                textColor="text-podcast-orange"
                icon={
-                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                   <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                   <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-4h3v4h2v-7.5c0-1.1-.9-2-2-2s-2 .9-2 2V18H4zm2.5-7.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S8.83 12 8 12s-1.5-.67-1.5-1.5zM12.5 11.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5zM15 18v-2h3v2h2v-5.5c0-1.1-.9-2-2-2s-2 .9-2 2V18h-1zm-3-3.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5z"/>
                  </svg>
                }
              />
 
-             {/* Featured Guests */}
+             {/* Twitch Followers */}
              <NumberCard
-               number={75}
-               label="Featured Guests"
+               number={3700}
+               label="Twitch Followers (Tufita)"
                suffix="+"
-               bgColor="bg-gradient-to-br from-gray-50 to-gray-100"
-               textColor="text-gray-600"
+               bgColor="bg-gradient-to-br from-purple-50 to-purple-100"
+               textColor="text-purple-600"
                icon={
-                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                   <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                   <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
                  </svg>
                }
              />
 
-             {/* Countries Reached */}
+             {/* Discord Members */}
              <NumberCard
-               number={45}
-               label="Countries Reached"
+               number={2000}
+               label="Discord Members"
                suffix="+"
-               bgColor="bg-gradient-to-br from-orange-50 to-orange-100"
-               textColor="text-podcast-orange"
+               bgColor="bg-gradient-to-br from-indigo-50 to-indigo-100"
+               textColor="text-indigo-600"
                icon={
-                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2H6.083A5.973 5.973 0 014.332 8.027z" clipRule="evenodd" />
+                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                   <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/>
                  </svg>
                }
              />
 
-             {/* Average Rating */}
+             {/* Live Viewers / Episode */}
              <NumberCard
-               number={4.9}
-               label="Average Rating"
-               suffix="/5"
-               bgColor="bg-gradient-to-br from-gray-50 to-gray-100"
-               textColor="text-gray-600"
+               number={300}
+               label="Live Viewers / Episode"
+               suffix=" +"
+               bgColor="bg-gradient-to-br from-green-50 to-green-100"
+               textColor="text-green-600"
                icon={
-                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                   <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
                  </svg>
                }
              />
@@ -323,29 +421,52 @@ function App() {
       {/* About Section */}
       <section id="about" className="bg-gradient-to-br from-gray-50 to-gray-100 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Creator Section */}
+          {/* Team Section */}
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Meet the <span className="text-podcast-orange">Creator</span>
+              Behind the <span className="text-podcast-orange">Scenes</span>
             </h2>
             <div className="max-w-4xl mx-auto">
               <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
                 <div className="flex flex-col lg:flex-row items-center gap-8">
                   <div className="lg:w-1/3">
-                    <img 
-                      src="/headshot-talk.svg" 
-                      alt="Creator" 
-                      className="w-48 h-48 mx-auto rounded-full shadow-xl border-4 border-podcast-orange"
-                    />
+                    <div className="relative w-56 h-56 mx-auto">
+                      <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-xl bg-yellow-400">
+                        <img 
+                          src="/GOPR0096.jpg" 
+                          alt="Team Member 1" 
+                          className="w-full h-full object-cover transition-opacity duration-1000 absolute inset-0 team-photo"
+                          style={{animationDelay: '0s'}}
+                        />
+                        <img 
+                          src="/GOPR0097.jpg" 
+                          alt="Team Member 2" 
+                          className="w-full h-full object-cover transition-opacity duration-1000 absolute inset-0 team-photo"
+                          style={{animationDelay: '3s'}}
+                        />
+                        <img 
+                          src="/GOPR0098.jpg" 
+                          alt="Team Member 3" 
+                          className="w-full h-full object-cover transition-opacity duration-1000 absolute inset-0 team-photo"
+                          style={{animationDelay: '6s'}}
+                        />
+                        <img 
+                          src="/GOPR0102.jpg" 
+                          alt="Team Member 4" 
+                          className="w-full h-full object-cover transition-opacity duration-1000 absolute inset-0 team-photo"
+                          style={{animationDelay: '9s'}}
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className="lg:w-2/3 text-center lg:text-left">
-                    <h3 className="text-3xl font-bold text-gray-900 mb-4">Alex Thompson</h3>
-                    <p className="text-xl text-podcast-orange font-semibold mb-6">Professional Photographer & Podcast Host</p>
+                    <h3 className="text-3xl font-bold text-gray-900 mb-4">The Creative Team</h3>
+                    <p className="text-xl text-podcast-orange font-semibold mb-6">Passionate Professionals Behind Every Episode</p>
                     <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                      With over 12 years of experience in professional photography, Alex has captured headshots for Fortune 500 executives, entrepreneurs, and creative professionals. His passion for helping others understand the art and business of headshot photography led to the creation of Headshot Talk.
+                      HeadShot Talk blends production craft with community energy. We record live on Twitch so viewers can interact in real time, pick questions for each segment, and shape the flow of the episode. Later, the best moments become Shorts, Reels, and YouTube highlights, bringing the conversation to every platform.
                     </p>
                     <p className="text-lg text-gray-600 leading-relaxed">
-                      Through this podcast, Alex shares industry insights, interviews top photographers, and provides actionable advice for both photographers and clients looking to create compelling professional images.
+                      Hosted by Tufita and produced in partnership with One More Esports, our mission is to elevate Moroccan gaming and streaming by giving the mic to established names and rising talent alike. Expect honest journeys, practical tips, and a front-row seat to the future of esports in Morocco.
                     </p>
                   </div>
                 </div>
@@ -358,9 +479,12 @@ function App() {
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
               Our Amazing <span className="text-podcast-orange">Sponsors</span>
             </h3>
-            <p className="text-xl text-gray-600 mb-16 max-w-3xl mx-auto">
-              We're grateful for the support of these industry-leading companies who make Headshot Talk possible
-            </p>
+            <div className="max-w-4xl mx-auto mb-16">
+              <h4 className="text-2xl font-bold text-gray-900 mb-4">Why partner with us</h4>
+              <p className="text-lg text-gray-600 mb-8">
+                Every episode is an interactive live stream followed by multi-format distribution across Twitch, YouTube, Instagram, TikTok, and Discord. Guests share episodes with their own communities, creating organic, multiplatform exposure.
+              </p>
+            </div>
             
             {/* Animated Logo Carousel */}
             <div className="relative overflow-hidden bg-white rounded-2xl shadow-lg py-12">
@@ -428,7 +552,7 @@ function App() {
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Latest Episodes</h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Scroll down to explore our latest podcast episodes. Each card will smoothly animate into view as you discover new content about headshot photography, personal branding, and professional development.
+            Explore our newest episodes recorded live with the community. Expect unfiltered stories from streamers, pros, and creators in Morocco — plus audience-picked questions that make every talk unique.
           </p>
         </div>
 
@@ -444,6 +568,8 @@ function App() {
               duration={episode.duration}
               date={episode.date}
               delay={episode.delay}
+              onPlayClick={() => openVideoModal(episode)}
+              onShowNotesClick={() => openShowNotesModal(episode)}
             />
           ))}
         </div>
@@ -451,16 +577,16 @@ function App() {
         {/* Call to Action */}
         <div className="text-center mt-20 mb-12">
           <div className="bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Subscribe to Headshot Talk</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Subscribe to HeadShot Talk</h3>
             <p className="text-gray-600 mb-6">
-              Don't miss out on the latest episodes! Subscribe to get notified when new content is available.
+              Catch every live episode, clips, and behind-the-scenes drops. Join the community and help shape the questions we ask on air.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <button className="bg-podcast-orange hover:bg-orange-500 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg">
-                Subscribe Now
+                Watch Live on Twitch
               </button>
               <button className="border-2 border-podcast-orange text-podcast-orange hover:bg-podcast-orange hover:text-white px-8 py-3 rounded-lg font-medium transition-all duration-200">
-                View All Episodes
+                See Full Episodes on YouTube
               </button>
             </div>
           </div>
@@ -468,22 +594,127 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer id="contact" className="bg-podcast-dark text-white py-12" style={{scrollBehavior: 'smooth'}}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h4 className="text-xl font-bold mb-4">Headshot Talk Podcast</h4>
-          <p className="text-gray-300 mb-6">
-            Empowering photographers and professionals through expert insights and industry knowledge.
-          </p>
-          <div className="flex justify-center space-x-6">
-            <a href="#" className="text-gray-300 hover:text-podcast-orange transition-colors">
-              Apple Podcasts
-            </a>
-            <a href="#" className="text-gray-300 hover:text-podcast-orange transition-colors">
-              Spotify
-            </a>
-            <a href="#" className="text-gray-300 hover:text-podcast-orange transition-colors">
-              Google Podcasts
-            </a>
+      <footer id="contact" className="bg-gray-900 text-white py-16" style={{scrollBehavior: 'smooth'}}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            {/* Brand Section */}
+            <div className="lg:col-span-1">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 bg-podcast-orange rounded-2xl flex items-center justify-center">
+                  <img src="/headshot-talk.svg" alt="Logo" className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold">Headshot Talk</h3>
+              </div>
+              <p className="text-gray-400 mb-6 leading-relaxed">
+                HeadShot Talk connects Morocco's gaming & esports community through live, interactive conversations with streamers, pros, and creators.
+              </p>
+              <div className="flex space-x-4">
+                <a href="https://www.twitch.tv/tufiita" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 hover:bg-podcast-orange rounded-xl flex items-center justify-center transition-colors duration-300">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                  </svg>
+                </a>
+                <a href="https://www.youtube.com/@Hshot-talk" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 hover:bg-podcast-orange rounded-xl flex items-center justify-center transition-colors duration-300">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                </a>
+                <a href="https://www.instagram.com/headshot.talk/reels/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 hover:bg-podcast-orange rounded-xl flex items-center justify-center transition-colors duration-300">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+                <a href="#" className="w-10 h-10 bg-gray-800 opacity-50 rounded-xl flex items-center justify-center transition-colors duration-300 cursor-not-allowed">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.004 5.367 18.637.001 12.017.001zM8.232 17.988c-.764 0-1.381-.617-1.381-1.381s.617-1.381 1.381-1.381 1.381.617 1.381 1.381-.617 1.381-1.381 1.381zm3.785-2.381c-2.455 0-4.449-1.994-4.449-4.449s1.994-4.449 4.449-4.449 4.449 1.994 4.449 4.449-1.994 4.449-4.449 4.449zm0-6.898c-1.352 0-2.449 1.097-2.449 2.449s1.097 2.449 2.449 2.449 2.449-1.097 2.449-2.449-1.097-2.449-2.449-2.449z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-3">
+                <li><a href="#home" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Home</a></li>
+                <li><a href="#episodes" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Episodes</a></li>
+                <li><a href="#guests" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Guests</a></li>
+                <li><a href="#about" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">About</a></li>
+                <li><a href="#contact" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Contact</a></li>
+              </ul>
+            </div>
+
+            {/* Watch/Follow */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Watch/Follow</h4>
+              <ul className="space-y-3">
+                <li><a href="https://www.twitch.tv/tufiita" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300 flex items-center space-x-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                  </svg>
+                  <span>Twitch</span>
+                </a></li>
+                <li><a href="https://www.youtube.com/@Hshot-talk" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300 flex items-center space-x-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                  <span>YouTube</span>
+                </a></li>
+                <li><a href="https://www.instagram.com/headshot.talk/reels/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300 flex items-center space-x-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                  <span>Instagram</span>
+                </a></li>
+                <li><span className="text-gray-500 opacity-50 flex items-center space-x-2 cursor-not-allowed">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.004 5.367 18.637.001 12.017.001zM8.232 17.988c-.764 0-1.381-.617-1.381-1.381s.617-1.381 1.381-1.381 1.381.617 1.381 1.381-.617 1.381-1.381 1.381zm3.785-2.381c-2.455 0-4.449-1.994-4.449-4.449s1.994-4.449 4.449-4.449 4.449 1.994 4.449 4.449-1.994 4.449-4.449 4.449zm0-6.898c-1.352 0-2.449 1.097-2.449 2.449s1.097 2.449 2.449 2.449 2.449-1.097 2.449-2.449-1.097-2.449-2.449-2.449z"/>
+                  </svg>
+                  <span>TikTok (Coming Soon)</span>
+                </span></li>
+              </ul>
+            </div>
+
+            {/* Contact Info */}
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Get In Touch</h4>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3 text-gray-400">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <span>headshotconnect1@gmail.com</span>
+                </div>
+                <div className="flex items-center space-x-3 text-gray-400">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>Morocco</span>
+                </div>
+                <button 
+                  onClick={openModal}
+                  className="bg-podcast-orange hover:bg-podcast-orange/80 text-white px-6 py-3 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl mt-4 w-full"
+                >
+                  Subscribe Now
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Section */}
+          <div className="border-t border-gray-800 mt-12 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              <div className="text-gray-400 text-sm">
+                © 2024 HeadShot Talk. All rights reserved.
+              </div>
+              <div className="flex space-x-6 text-sm">
+                <a href="#" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Privacy Policy</a>
+                <a href="#" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Terms of Service</a>
+                <a href="#" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Cookie Policy</a>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
@@ -511,14 +742,31 @@ function App() {
 
             {/* Modal Header */}
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Subscribe to Headshot Talk</h2>
-              <p className="text-gray-600">Follow us on social media for the latest updates</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Follow HeadShot Talk</h2>
+              <p className="text-gray-600">We go live on Twitch and post highlights across platforms. Tap where you hang out most.</p>
             </div>
 
             {/* Social Media Links */}
             <div className="space-y-3">
               <a 
-                href="https://youtube.com" 
+                href="https://www.twitch.tv/tufiita" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-4 p-4 rounded-2xl bg-purple-50/80 hover:bg-purple-100/80 transition-colors duration-200 group"
+              >
+                <div className="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Twitch</h3>
+                  <p className="text-sm text-gray-600">Watch our IRL live recordings</p>
+                </div>
+              </a>
+
+              <a 
+                href="https://www.youtube.com/@Hshot-talk" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center space-x-4 p-4 rounded-2xl bg-red-50/80 hover:bg-red-100/80 transition-colors duration-200 group"
@@ -530,63 +778,12 @@ function App() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900 group-hover:text-red-600 transition-colors">YouTube</h3>
-                  <p className="text-sm text-gray-600">Watch our latest episodes</p>
+                  <p className="text-sm text-gray-600">Full episodes & Shorts</p>
                 </div>
               </a>
 
               <a 
-                href="https://spotify.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center space-x-4 p-4 rounded-2xl bg-green-50/80 hover:bg-green-100/80 transition-colors duration-200 group"
-              >
-                <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900 group-hover:text-green-600 transition-colors">Spotify</h3>
-                  <p className="text-sm text-gray-600">Listen on Spotify</p>
-                </div>
-              </a>
-
-              <a 
-                href="https://apple.com/podcasts" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center space-x-4 p-4 rounded-2xl bg-purple-50/80 hover:bg-purple-100/80 transition-colors duration-200 group"
-              >
-                <div className="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.4c5.302 0 9.6 4.298 9.6 9.6s-4.298 9.6-9.6 9.6S2.4 17.302 2.4 12 6.698 2.4 12 2.4zm0 3.6c-3.314 0-6 2.686-6 6s2.686 6 6 6 6-2.686 6-6-2.686-6-6-6zm0 2.4c1.99 0 3.6 1.61 3.6 3.6s-1.61 3.6-3.6 3.6-3.6-1.61-3.6-3.6S10.01 8.4 12 8.4z"/>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Apple Podcasts</h3>
-                  <p className="text-sm text-gray-600">Listen on Apple Podcasts</p>
-                </div>
-              </a>
-
-              <a 
-                href="https://twitter.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center space-x-4 p-4 rounded-2xl bg-blue-50/80 hover:bg-blue-100/80 transition-colors duration-200 group"
-              >
-                <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">Twitter</h3>
-                  <p className="text-sm text-gray-600">Follow us on Twitter</p>
-                </div>
-              </a>
-
-              <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/headshot.talk/reels/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center space-x-4 p-4 rounded-2xl bg-pink-50/80 hover:bg-pink-100/80 transition-colors duration-200 group"
@@ -598,7 +795,7 @@ function App() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">Instagram</h3>
-                  <p className="text-sm text-gray-600">Follow us on Instagram</p>
+                  <p className="text-sm text-gray-600">Reels & behind-the-scenes</p>
                 </div>
               </a>
             </div>
@@ -606,6 +803,150 @@ function App() {
             {/* Footer */}
             <div className="mt-6 pt-4 border-t border-gray-200/50 text-center">
               <p className="text-sm text-gray-500">Thank you for your support!</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Video Modal */}
+      {isVideoModalOpen && selectedVideo && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300"
+            onClick={closeVideoModal}
+          ></div>
+          
+          {/* Modal Content */}
+          <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 p-6 mx-4 max-w-4xl w-full transform transition-all duration-300 scale-100">
+            {/* Close Button */}
+            <button 
+              onClick={closeVideoModal}
+              className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100/80 hover:bg-gray-200/80 transition-colors duration-200 z-10"
+            >
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Modal Header */}
+            <div className="text-center mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">{selectedVideo.title}</h2>
+              <div className="flex justify-center items-center space-x-4 text-sm text-gray-600">
+                <span className="bg-podcast-orange/10 text-podcast-orange px-3 py-1 rounded-full font-semibold">EPISODE {selectedVideo.episode}</span>
+                <span>{selectedVideo.date}</span>
+                <span>•</span>
+                <span>{selectedVideo.duration}</span>
+              </div>
+            </div>
+
+            {/* Video Container */}
+            <div className="relative w-full" style={{paddingBottom: '56.25%'}}>
+              {selectedVideo.youtubeUrl && selectedVideo.youtubeUrl !== 'PLACEHOLDER_FOUADOX_URL' && selectedVideo.youtubeUrl !== 'PLACEHOLDER_HAKKIMMA_URL' ? (
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-2xl"
+                  src={selectedVideo.youtubeUrl.replace('watch?v=', 'embed/')}
+                  title={selectedVideo.title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              ) : (
+                <div className="absolute top-0 left-0 w-full h-full rounded-2xl bg-gray-100 flex items-center justify-center">
+                  <div className="text-center">
+                    <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                    </svg>
+                    <p className="text-gray-600 font-medium">Video will be available soon</p>
+                    <p className="text-sm text-gray-500 mt-1">YouTube link pending</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Episode Description */}
+            <div className="mt-6 text-center">
+              <p className="text-gray-700 leading-relaxed max-w-2xl mx-auto">
+                {selectedVideo.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Show Notes Modal */}
+      {isShowNotesModalOpen && selectedEpisodeNotes && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300"
+            onClick={closeShowNotesModal}
+          ></div>
+          
+          {/* Modal Content */}
+          <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 p-6 mx-4 max-w-4xl w-full max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-100">
+            {/* Close Button */}
+            <button 
+              onClick={closeShowNotesModal}
+              className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100/80 hover:bg-gray-200/80 transition-colors duration-200 z-10"
+            >
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Modal Header */}
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">{selectedEpisodeNotes.title} - Show Notes</h2>
+              <div className="flex justify-center items-center space-x-4 text-sm text-gray-600">
+                <span className="bg-podcast-orange/10 text-podcast-orange px-3 py-1 rounded-full font-semibold">EPISODE {selectedEpisodeNotes.episode}</span>
+                <span>{selectedEpisodeNotes.date}</span>
+                <span>•</span>
+                <span>{selectedEpisodeNotes.duration}</span>
+              </div>
+            </div>
+
+            {/* Show Notes Content */}
+            <div className="space-y-8">
+              {/* Topics Covered */}
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <svg className="w-5 h-5 text-podcast-orange mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                  </svg>
+                  Topics Covered
+                </h3>
+                <ul className="space-y-2">
+                  {selectedEpisodeNotes.showNotes.topics.map((topic, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="w-2 h-2 bg-podcast-orange rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                      <span className="text-gray-700">{topic}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Key Moments */}
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <svg className="w-5 h-5 text-podcast-orange mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                  </svg>
+                  Key Moments
+                </h3>
+                <div className="space-y-3">
+                  {selectedEpisodeNotes.showNotes.keyMoments.map((moment, index) => (
+                    <div key={index} className="flex items-start bg-gray-50 rounded-lg p-3">
+                      <span className="bg-podcast-orange text-white px-2 py-1 rounded text-sm font-mono mr-3 flex-shrink-0">
+                        {moment.time}
+                      </span>
+                      <span className="text-gray-700">{moment.topic}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+
             </div>
           </div>
         </div>
