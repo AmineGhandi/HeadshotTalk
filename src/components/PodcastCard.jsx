@@ -1,5 +1,6 @@
 import React from 'react';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import { useTranslation } from '../contexts/TranslationContext';
 
 const PodcastCard = ({ 
   title, 
@@ -13,6 +14,7 @@ const PodcastCard = ({
   onShowNotesClick
 }) => {
   const [ref, isVisible] = useScrollAnimation();
+  const { t } = useTranslation();
 
   return (
     <div
@@ -75,7 +77,7 @@ const PodcastCard = ({
               <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
               </svg>
-              <span>Play Episode</span>
+              <span>{t('episodes.playEpisode')}</span>
             </button>
             <button 
               onClick={onShowNotesClick}
@@ -84,7 +86,7 @@ const PodcastCard = ({
                 <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                 <path fillRule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 102 0V3h4v1a1 1 0 102 0V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
               </svg>
-              <span>Show Notes</span>
+              <span>{t('episodes.showNotes')}</span>
             </button>
           </div>
         </div>

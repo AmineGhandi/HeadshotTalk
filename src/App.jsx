@@ -5,10 +5,13 @@ import GuestCarousel from './components/GuestCarousel';
 import NumberCard from './components/NumberCard';
 import LoadingScreen from './components/LoadingScreen';
 import LoadingAnimation from './components/LoadingAnimation';
+import LanguageToggle from './components/LanguageToggle';
+import { useTranslation } from './contexts/TranslationContext';
 
 
 
 function App() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -140,7 +143,7 @@ function App() {
 
   // Show loading screen while app is initializing
   if (isLoading) {
-    return <LoadingScreen message="Welcome to HeadShot Talk" />;
+    return <LoadingScreen message={t('loading.welcome')} />;
   }
 
   return (
@@ -157,10 +160,11 @@ function App() {
              
              {/* Desktop Navigation */}
              <div className="hidden md:flex items-center space-x-1">
-               <a href="#episodes" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">Episodes</a>
-               <a href="#guests" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">Guests</a>
-               <a href="#about" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">About</a>
-               <a href="#contact" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">Contact</a>
+               <a href="#episodes" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">{t('nav.episodes')}</a>
+               <a href="#guests" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">{t('nav.guests')}</a>
+               <a href="#about" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">{t('nav.about')}</a>
+               <a href="#contact" className="text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-2 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth">{t('nav.contact')}</a>
+               <LanguageToggle className="ml-2" />
              </div>
              
              {/* Desktop Subscribe Button */}
@@ -168,7 +172,7 @@ function App() {
                 onClick={openModal}
                 className="hidden md:block bg-podcast-orange/70 backdrop-blur-md hover:bg-podcast-orange/80 text-white px-6 py-2.5 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl border border-white/30 hover:scale-105"
               >
-                Subscribe
+                {t('nav.subscribe')}
               </button>
               
              {/* Mobile Menu Button */}
@@ -193,34 +197,37 @@ function App() {
                  className="block text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-3 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth"
                  onClick={() => setIsMobileMenuOpen(false)}
                >
-                 Episodes
+                 {t('nav.episodes')}
                </a>
                <a 
                  href="#guests" 
                  className="block text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-3 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth"
                  onClick={() => setIsMobileMenuOpen(false)}
                >
-                 Guests
+                 {t('nav.guests')}
                </a>
                <a 
                  href="#about" 
                  className="block text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-3 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth"
                  onClick={() => setIsMobileMenuOpen(false)}
                >
-                 About
+                 {t('nav.about')}
                </a>
                <a 
                  href="#contact" 
                  className="block text-gray-800/80 hover:text-podcast-orange hover:bg-white/30 transition-all duration-300 font-medium px-4 py-3 rounded-2xl backdrop-blur-md border border-transparent hover:border-white/30 scroll-smooth"
                  onClick={() => setIsMobileMenuOpen(false)}
                >
-                 Contact
+                 {t('nav.contact')}
                </a>
+               <div className="flex justify-center mt-4 mb-2">
+                 <LanguageToggle />
+               </div>
                <button 
                  onClick={() => { openModal(); setIsMobileMenuOpen(false); }}
                  className="w-full bg-podcast-orange/70 backdrop-blur-md hover:bg-podcast-orange/80 text-white px-6 py-3 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl border border-white/30 mt-4"
                >
-                 Subscribe
+                 {t('nav.subscribe')}
                </button>
              </div>
            </div>
@@ -342,17 +349,23 @@ function App() {
               className="w-32 h-32 md:w-48 md:h-48 mx-auto mb-8 drop-shadow-lg"
             />
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-16 leading-relaxed">
-              HeadShot Talk is a Moroccan podcast that spotlights the local gaming & esports scene streamed live and IRL so chat can jump in with real questions, then edited for YouTube, Shorts, Reels, and more. Hosted by Tufita in partnership with One More Esports.
+              {t('hero.description')}
             </p>
           </div>
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-            <button className="bg-podcast-orange hover:bg-orange-500 text-white px-12 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 min-w-[200px]">
-              About Us
+            <button 
+              onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-podcast-orange hover:bg-orange-500 text-white px-12 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 min-w-[200px]"
+            >
+              {t('hero.aboutUs')}
             </button>
-            <button className="border-2 border-podcast-orange text-podcast-orange hover:bg-podcast-orange hover:text-white px-12 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 min-w-[200px]">
-              Latest Episode
+            <button 
+              onClick={() => document.getElementById('episodes')?.scrollIntoView({ behavior: 'smooth' })}
+              className="border-2 border-podcast-orange text-podcast-orange hover:bg-podcast-orange hover:text-white px-12 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 min-w-[200px]"
+            >
+              {t('hero.latestEpisode')}
             </button>
           </div>
         </div>
@@ -368,10 +381,10 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Our <span className="text-podcast-orange">Impact</span>
+              {t('numbers.title')} <span className="text-podcast-orange">{t('numbers.titleHighlight')}</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Join thousands of professionals who trust Headshot Talk for industry insights and expert advice
+              {t('numbers.description')}
             </p>
           </div>
 
@@ -379,7 +392,7 @@ function App() {
              {/* Total Community Reach */}
              <NumberCard
                number={9000}
-               label="Total Community Reach"
+               label={t('numbers.communityReach')}
                suffix="+"
                bgColor="bg-gradient-to-br from-orange-50 to-orange-100"
                textColor="text-podcast-orange"
@@ -393,7 +406,7 @@ function App() {
              {/* Twitch Followers */}
              <NumberCard
                number={3700}
-               label="Twitch Followers (Tufita)"
+               label={t('numbers.twitchFollowers')}
                suffix="+"
                bgColor="bg-gradient-to-br from-purple-50 to-purple-100"
                textColor="text-purple-600"
@@ -407,7 +420,7 @@ function App() {
              {/* Discord Members */}
              <NumberCard
                number={2000}
-               label="Discord Members"
+               label={t('numbers.discordMembers')}
                suffix="+"
                bgColor="bg-gradient-to-br from-indigo-50 to-indigo-100"
                textColor="text-indigo-600"
@@ -421,7 +434,7 @@ function App() {
              {/* Live Viewers / Episode */}
              <NumberCard
                number={300}
-               label="Live Viewers / Episode"
+               label={t('numbers.liveViewers')}
                suffix=" +"
                bgColor="bg-gradient-to-br from-green-50 to-green-100"
                textColor="text-green-600"
@@ -441,7 +454,7 @@ function App() {
           {/* Team Section */}
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Behind the <span className="text-podcast-orange">Scenes</span>
+              {t('about.title')} <span className="text-podcast-orange">{t('about.titleHighlight')}</span>
             </h2>
             <div className="max-w-4xl mx-auto">
               <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
@@ -477,13 +490,13 @@ function App() {
                     </div>
                   </div>
                   <div className="lg:w-2/3 text-center lg:text-left">
-                    <h3 className="text-3xl font-bold text-gray-900 mb-4">The Creative Team</h3>
-                    <p className="text-xl text-podcast-orange font-semibold mb-6">Passionate Professionals Behind Every Episode</p>
+                    <h3 className="text-3xl font-bold text-gray-900 mb-4">{t('about.teamTitle')}</h3>
+                    <p className="text-xl text-podcast-orange font-semibold mb-6">{t('about.teamSubtitle')}</p>
                     <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                      HeadShot Talk blends production craft with community energy. We record live on Twitch so viewers can interact in real time, pick questions for each segment, and shape the flow of the episode. Later, the best moments become Shorts, Reels, and YouTube highlights, bringing the conversation to every platform.
+                      {t('about.description1')}
                     </p>
                     <p className="text-lg text-gray-600 leading-relaxed">
-                      Hosted by Tufita and produced in partnership with One More Esports, our mission is to elevate Moroccan gaming and streaming by giving the mic to established names and rising talent alike. Expect honest journeys, practical tips, and a front-row seat to the future of esports in Morocco.
+                      {t('about.description2')}
                     </p>
                   </div>
                 </div>
@@ -494,12 +507,12 @@ function App() {
           {/* Sponsors Section */}
           <div className="text-center">
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
-              Our Amazing <span className="text-podcast-orange">Sponsors</span>
+              {t('sponsors.title')} <span className="text-podcast-orange">{t('sponsors.titleHighlight')}</span>
             </h3>
             <div className="max-w-4xl mx-auto mb-16">
-              <h4 className="text-2xl font-bold text-gray-900 mb-4">Why partner with us</h4>
+              <h4 className="text-2xl font-bold text-gray-900 mb-4">{t('sponsors.whyPartner')}</h4>
               <p className="text-lg text-gray-600 mb-8">
-                Every episode is an interactive live stream followed by multi-format distribution across Twitch, YouTube, Instagram, TikTok, and Discord. Guests share episodes with their own communities, creating organic, multiplatform exposure.
+                {t('sponsors.description')}
               </p>
             </div>
             
@@ -567,9 +580,9 @@ function App() {
       <main id="episodes" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Introduction Section */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Latest Episodes</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('episodes.latestEpisodes')}</h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Explore our newest episodes recorded live with the community. Expect unfiltered stories from streamers, pros, and creators in Morocco — plus audience-picked questions that make every talk unique.
+            {t('episodes.description')}
           </p>
         </div>
 
@@ -594,16 +607,22 @@ function App() {
         {/* Call to Action */}
         <div className="text-center mt-20 mb-12">
           <div className="bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Subscribe to HeadShot Talk</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">{t('subscribe.title')}</h3>
             <p className="text-gray-600 mb-6">
-              Catch every live episode, clips, and behind-the-scenes drops. Join the community and help shape the questions we ask on air.
+              {t('subscribe.subscribeDescription')}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="bg-podcast-orange hover:bg-orange-500 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg">
-                Watch Live on Twitch
+              <button 
+                onClick={() => window.open('https://www.twitch.tv/tufiita', '_blank')}
+                className="bg-podcast-orange hover:bg-orange-500 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 shadow-md hover:shadow-lg"
+              >
+                {t('subscribe.watchLive')}
               </button>
-              <button className="border-2 border-podcast-orange text-podcast-orange hover:bg-podcast-orange hover:text-white px-8 py-3 rounded-lg font-medium transition-all duration-200">
-                See Full Episodes on YouTube
+              <button 
+                onClick={() => window.open('https://www.youtube.com/@Hshot-talk', '_blank')}
+                className="border-2 border-podcast-orange text-podcast-orange hover:bg-podcast-orange hover:text-white px-8 py-3 rounded-lg font-medium transition-all duration-200"
+              >
+                {t('subscribe.fullEpisodes')}
               </button>
             </div>
           </div>
@@ -626,7 +645,7 @@ function App() {
                 <h3 className="text-xl font-bold">Headshot Talk</h3>
               </div>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                HeadShot Talk connects Morocco's gaming & esports community through live, interactive conversations with streamers, pros, and creators.
+                {t('footer.description')}
               </p>
               <div className="flex space-x-4">
                 <a href="https://www.twitch.tv/tufiita" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 hover:bg-podcast-orange rounded-xl flex items-center justify-center transition-colors duration-300">
@@ -654,19 +673,19 @@ function App() {
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <h4 className="text-lg font-semibold mb-4">{t('footer.quickLinks')}</h4>
               <ul className="space-y-3">
-                <li><a href="#home" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Home</a></li>
-                <li><a href="#episodes" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Episodes</a></li>
-                <li><a href="#guests" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Guests</a></li>
-                <li><a href="#about" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">About</a></li>
-                <li><a href="#contact" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Contact</a></li>
+                <li><a href="#home" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">{t('footer.home')}</a></li>
+                <li><a href="#episodes" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">{t('nav.episodes')}</a></li>
+                <li><a href="#guests" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">{t('nav.guests')}</a></li>
+                <li><a href="#about" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">{t('nav.about')}</a></li>
+                <li><a href="#contact" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">{t('nav.contact')}</a></li>
               </ul>
             </div>
 
             {/* Watch/Follow */}
             <div>
-              <h4 className="text-lg font-semibold mb-4">Watch/Follow</h4>
+              <h4 className="text-lg font-semibold mb-4">{t('footer.watchFollow')}</h4>
               <ul className="space-y-3">
                 <li><a href="https://www.twitch.tv/tufiita" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300 flex items-center space-x-2">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -690,14 +709,14 @@ function App() {
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.004 5.367 18.637.001 12.017.001zM8.232 17.988c-.764 0-1.381-.617-1.381-1.381s.617-1.381 1.381-1.381 1.381.617 1.381 1.381-.617 1.381-1.381 1.381zm3.785-2.381c-2.455 0-4.449-1.994-4.449-4.449s1.994-4.449 4.449-4.449 4.449 1.994 4.449 4.449-1.994 4.449-4.449 4.449zm0-6.898c-1.352 0-2.449 1.097-2.449 2.449s1.097 2.449 2.449 2.449 2.449-1.097 2.449-2.449-1.097-2.449-2.449-2.449z"/>
                   </svg>
-                  <span>TikTok (Coming Soon)</span>
+                  <span>{t('footer.tiktokSoon')}</span>
                 </span></li>
               </ul>
             </div>
 
             {/* Contact Info */}
             <div>
-              <h4 className="text-lg font-semibold mb-4">Get In Touch</h4>
+              <h4 className="text-lg font-semibold mb-4">{t('footer.getInTouch')}</h4>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-gray-400">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -716,7 +735,7 @@ function App() {
                   onClick={openModal}
                   className="bg-podcast-orange hover:bg-podcast-orange/80 text-white px-6 py-3 rounded-2xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl mt-4 w-full"
                 >
-                  Subscribe Now
+                  {t('subscribe.subscribeNow')}
                 </button>
               </div>
             </div>
@@ -726,12 +745,12 @@ function App() {
           <div className="border-t border-gray-800 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <div className="text-gray-400 text-sm">
-                © 2024 HeadShot Talk. All rights reserved.
+                {t('footer.copyright')}
               </div>
               <div className="flex space-x-6 text-sm">
-                <a href="#" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Privacy Policy</a>
-                <a href="#" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Terms of Service</a>
-                <a href="#" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">Cookie Policy</a>
+                <a href="#" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">{t('footer.privacyPolicy')}</a>
+                <a href="#" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">{t('footer.termsOfService')}</a>
+                <a href="#" className="text-gray-400 hover:text-podcast-orange transition-colors duration-300">{t('footer.cookiePolicy')}</a>
               </div>
             </div>
           </div>
@@ -761,8 +780,8 @@ function App() {
 
             {/* Modal Header */}
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Follow HeadShot Talk</h2>
-              <p className="text-gray-600">We go live on Twitch and post highlights across platforms. Tap where you hang out most.</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('subscribe.subscribeModal')}</h2>
+              <p className="text-gray-600">{t('subscribe.subscribeModalSubtitle')}</p>
             </div>
 
             {/* Social Media Links */}
@@ -780,7 +799,7 @@ function App() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">Twitch</h3>
-                  <p className="text-sm text-gray-600">Watch our IRL live recordings</p>
+                  <p className="text-sm text-gray-600">{t('subscribe.twitchDescription')}</p>
                 </div>
               </a>
 
@@ -797,7 +816,7 @@ function App() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900 group-hover:text-red-600 transition-colors">YouTube</h3>
-                  <p className="text-sm text-gray-600">Full episodes & Shorts</p>
+                  <p className="text-sm text-gray-600">{t('subscribe.youtubeDescription')}</p>
                 </div>
               </a>
 
@@ -814,14 +833,14 @@ function App() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">Instagram</h3>
-                  <p className="text-sm text-gray-600">Reels & behind-the-scenes</p>
+                  <p className="text-sm text-gray-600">{t('subscribe.instagramDescription')}</p>
                 </div>
               </a>
             </div>
 
             {/* Footer */}
             <div className="mt-6 pt-4 border-t border-gray-200/50 text-center">
-              <p className="text-sm text-gray-500">Thank you for your support!</p>
+              <p className="text-sm text-gray-500">{t('subscribe.thankYou')}</p>
             </div>
           </div>
         </div>

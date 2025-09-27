@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import { useTranslation } from '../contexts/TranslationContext';
 
 const GuestCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [elementRef, isVisible] = useScrollAnimation();
+  const { t } = useTranslation();
 
   const guests = [
     {
@@ -54,10 +56,10 @@ const GuestCarousel = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Featured <span className="text-podcast-orange">Guests</span>
+            {t('guests.featured')} <span className="text-podcast-orange">{t('guests.featuredHighlight')}</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Meet the gaming creators and streamers who joined us for live conversations about Morocco's esports scene
+            {t('guests.description')}
           </p>
         </div>
 

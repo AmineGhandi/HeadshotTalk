@@ -1,7 +1,7 @@
 import React from 'react';
 import LoadingAnimation from './LoadingAnimation';
 
-const LoadingScreen = ({ message = 'Loading...', fullScreen = true }) => {
+const LoadingScreen = ({ message = '', fullScreen = true }) => {
   if (fullScreen) {
     return (
       <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
