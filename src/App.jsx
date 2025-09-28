@@ -76,13 +76,45 @@ function App() {
   const podcastEpisodes = [
     {
       id: 1,
+      title: "Hakkimma",
+      description: "Join us for an engaging discussion with Hakkimma about their experiences in the gaming world, content creation strategies, and the evolving landscape of esports in Morocco.",
+      svgPath: "/headshotshot.svg",
+      episode: "001",
+      duration: "72 min",
+      date: "Dec 8, 2024",
+      delay: 0,
+      youtubeUrl: "https://www.youtube.com/watch?v=dLA7Q0pwiHU",
+      showNotes: {
+        topics: [
+          "Esports career development",
+          "Professional gaming mindset",
+          "Training routines and discipline",
+          "Moroccan esports scene evolution",
+          "Future collaborations and projects"
+        ],
+        keyMoments: [
+          { time: "00:05", topic: "Introduction and background" },
+          { time: "14:20", topic: "Esports career beginnings" },
+          { time: "32:15", topic: "Training and competition insights" },
+          { time: "48:30", topic: "Moroccan gaming community" },
+          { time: "62:45", topic: "Future vision and goals" }
+        ],
+        resources: [
+          "Hakkimma's Twitch Channel",
+          "Esports training resources",
+          "Gaming community platforms"
+        ]
+      }
+    },
+    {
+      id: 2,
       title: "Fouadox",
       description: "An in-depth conversation with Fouadox, exploring their journey in gaming and content creation, sharing insights about the Moroccan streaming scene and community building.",
       svgPath: "/headshot-talk.svg",
-      episode: "001",
+      episode: "002",
       duration: "64 min",
       date: "Dec 15, 2024",
-      delay: 0,
+      delay: 200,
       youtubeUrl: "https://www.youtube.com/watch?v=IUu8C-uIODE",
       showNotes: {
         topics: [
@@ -103,39 +135,6 @@ function App() {
           "Fouadox's Twitch Channel",
           "Gaming setup recommendations",
           "Streaming software guide"
-        ]
-      }
-    },
-    {
-      id: 2,
-      title: "Hakkimma",
-      description: "Join us for an engaging discussion with Hakkimma about their experiences in the gaming world, content creation strategies, and the evolving landscape of esports in Morocco.",
-      svgPath: "/headshotshot.svg",
-      episode: "002",
-      duration: "72 min",
-      date: "Dec 8, 2024",
-      delay: 200,
-      youtubeUrl: "https://www.youtube.com/watch?v=dLA7Q0pwiHU&t=263s",
-      showNotes: {
-        topics: [
-          "Esports career development",
-          "Professional gaming mindset",
-          "Training routines and discipline",
-          "Moroccan esports scene evolution",
-          "Balancing gaming and personal life"
-        ],
-        keyMoments: [
-          { time: "00:03", topic: "Welcome and introductions" },
-          { time: "08:15", topic: "Professional gaming journey" },
-          { time: "22:40", topic: "Training and improvement strategies" },
-          { time: "38:55", topic: "Esports in Morocco discussion" },
-          { time: "52:30", topic: "Mental health and gaming" },
-          { time: "65:45", topic: "Advice for aspiring gamers" }
-        ],
-        resources: [
-          "Hakkimma's gaming profiles",
-          "Esports training resources",
-          "Mental health in gaming guide"
         ]
       }
     }
@@ -531,43 +530,43 @@ function App() {
                 {/* Sponsor logos - duplicated for seamless loop */}
                 <div className="flex space-x-16 items-center min-w-max">
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshot-talk.svg" alt="Canon" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Canon" className="max-w-full max-h-full object-contain" />
                   </div>
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshotshot.svg" alt="Adobe" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Adobe" className="max-w-full max-h-full object-contain" />
                   </div>
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshot-talk.svg" alt="Profoto" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Profoto" className="max-w-full max-h-full object-contain" />
                   </div>
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshotshot.svg" alt="Capture One" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Capture One" className="max-w-full max-h-full object-contain" />
                   </div>
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshot-talk.svg" alt="Godox" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Godox" className="max-w-full max-h-full object-contain" />
                   </div>
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshotshot.svg" alt="Westcott" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Westcott" className="max-w-full max-h-full object-contain" />
                   </div>
                 </div>
                 {/* Duplicate for seamless loop */}
                 <div className="flex space-x-16 items-center min-w-max">
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshot-talk.svg" alt="Canon" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Canon" className="max-w-full max-h-full object-contain" />
                   </div>
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshotshot.svg" alt="Adobe" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Adobe" className="max-w-full max-h-full object-contain" />
                   </div>
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshot-talk.svg" alt="Profoto" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Profoto" className="max-w-full max-h-full object-contain" />
                   </div>
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshotshot.svg" alt="Capture One" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Capture One" className="max-w-full max-h-full object-contain" />
                   </div>
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshot-talk.svg" alt="Godox" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Godox" className="max-w-full max-h-full object-contain" />
                   </div>
                   <div className="flex items-center justify-center w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src="/headshotshot.svg" alt="Westcott" className="max-w-full max-h-full object-contain" />
+                    <img src="/logoOnemore.svg" alt="Westcott" className="max-w-full max-h-full object-contain" />
                   </div>
                 </div>
               </div>
