@@ -153,7 +153,7 @@ const GuestCarousel = () => {
                                 rel="noopener noreferrer"
                                 className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full transition-colors duration-200"
                               >
-                                <img src="https://kick.com/favicon.ico" alt="Kick" className="w-5 h-5" />
+                                <img src="/kick-app-icon-hd.png" alt="Kick" className="w-5 h-5" />
                               </a>
                            )}
                         {guest.socialLinks.youtube && (
