@@ -137,6 +137,70 @@ function App() {
           "Streaming software guide"
         ]
       }
+    },
+    {
+      id: 3,
+      title: "Bazouya",
+      description: "حلقة مع Bazouya كايعاود لينا قصتو فالعالم ديال الستريمينغ والگيمينغ، وكيفاش بنى المجتمع ديالو وسط ساحة الجيمينغ المغربية.",
+      svgPath: "/headshotshot.svg",
+      episode: "003",
+      duration: "78 min",
+      date: "Jan 12, 2025",
+      delay: 400,
+      youtubeUrl: "https://www.youtube.com/watch?v=yPdTst7l2xs",
+      showNotes: {
+        topics: [
+          "البدايات ديال Bazouya فالعالم ديال الجيمينغ",
+          "كيفاش دخل لعالم الستريمينغ",
+          "صعوبات وبزنس الستريمينغ فالمغرب",
+          "بناء مجتمع وفي على Twitch و YouTube",
+          "نصائح للمبتدئين فالمحتوى والجيمينغ"
+        ],
+        keyMoments: [
+          { time: "00:05", topic: "تقديم Bazouya والرحلة ديالو" },
+          { time: "18:30", topic: "أول تجارب فالبث المباشر" },
+          { time: "36:10", topic: "أهم التحديات فالساحة المغربية" },
+          { time: "55:20", topic: "بناء مجتمع ودعم المتابعين" },
+          { time: "70:00", topic: "أفكار وخطط للمستقبل" }
+        ],
+        resources: [
+          "قنوات Bazouya على المنصات",
+          "موارد لتطوير الستريمينغ",
+          "مجتمعات جيمينغ مغربية"
+        ]
+      }
+    },
+    {
+      id: 4,
+      title: "Walid Elkilani",
+      description: "Content Creator و YouTuber Walid Elkilani كايعاود لينا قصتو مع صناعة المحتوى، من البدايات الأولى حتى بناء قناة وجمهور وفي.",
+      svgPath: "/headshot-talk.svg",
+      episode: "004",
+      duration: "82 min",
+      date: "Jan 26, 2025",
+      delay: 600,
+      youtubeUrl: "https://www.youtube.com/watch?v=pVLc__fp_kE",
+      showNotes: {
+        topics: [
+          "كيفاش بدا Walid Elkilani فـ YouTube",
+          "تطوير أسلوب خاص فصناعة المحتوى",
+          "التوازن بين الحياة اليومية والمحتوى",
+          "التعامل مع الانتقادات والضغط",
+          "نصائح لأي واحد باغي يبدا قناة ديالو"
+        ],
+        keyMoments: [
+          { time: "00:05", topic: "التعريف بوليد والقصة ديالو" },
+          { time: "16:40", topic: "أول فيديوهات والتجارب الأولى" },
+          { time: "35:15", topic: "كيفاش لقا النيش ديالو" },
+          { time: "57:50", topic: "التعامل مع الوتيرة والضغط" },
+          { time: "75:30", topic: "رسالة للمحتوى المغاربي" }
+        ],
+        resources: [
+          "قناة Walid Elkilani على YouTube",
+          "أدوات بسيطة لصناعة المحتوى",
+          "مصادر لتعلم المونتاج والتصوير"
+        ]
+      }
     }
   ];
 

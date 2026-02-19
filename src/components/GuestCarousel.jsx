@@ -35,6 +35,33 @@ const GuestCarousel = () => {
         youtube: "https://www.youtube.com/channel/UCh9HBHsiTJnlFBMEzrrMANA",
         twitch: "https://www.twitch.tv/fouadox"
       }
+    },
+    {
+      id: 3,
+      name: "Bazouya",
+      title: "Streamer & Gaming Content Creator",
+      description: "Bazouya shares his journey in the world of streaming and gaming, building a dedicated community around Moroccan gaming culture.",
+      image: "/Bazouya.jpg",
+      episode: "Episode 003",
+      socialLinks: {
+        instagram: "https://www.instagram.com/bazouyaa",
+        kick: "https://kick.com/bazouyaa",
+        twitch: "https://www.twitch.tv/bazouya",
+        tiktok: "https://www.tiktok.com/@bazouya",
+        youtube: "https://www.youtube.com/@bazouya"
+      }
+    },
+    {
+      id: 4,
+      name: "Walid Elkilani",
+      title: "Content Creator & YouTuber",
+      description: "Walid Elkilani talks about content creation, storytelling, and how he built his presence as a Moroccan YouTuber.",
+      image: "/Walid.jpg",
+      episode: "Episode 004",
+      socialLinks: {
+        instagram: "https://www.instagram.com/walid_elkilani",
+        youtube: "https://www.youtube.com/@WALIDELKILANI"
+      }
     }
   ];
 
@@ -75,7 +102,7 @@ const GuestCarousel = () => {
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
-            {guests.map((guest, index) => (
+            {guests.map((guest) => (
               <div key={guest.id} className="w-full flex-shrink-0">
                 <div className="flex flex-col lg:flex-row items-center p-8 lg:p-16">
                   {/* Guest Image */}
@@ -151,6 +178,18 @@ const GuestCarousel = () => {
                                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                                  </svg>
+                              </a>
+                        )}
+                        {guest.socialLinks.tiktok && (
+                          <a
+                                href={guest.socialLinks.tiktok}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-black hover:bg-gray-900 text-white p-3 rounded-full transition-colors duration-200"
+                              >
+                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                   <path d="M16.839 6.202c.705.63 1.64 1.035 2.661 1.089V4.14c-.274.01-.548-.014-.816-.071a3.17 3.17 0 01-1.845-1.19 3.18 3.18 0 01-.64-1.948h-2.49v13.04a2.18 2.18 0 01-.093.643 2.19 2.19 0 01-2.1 1.548 2.19 2.19 0 01-2.193-2.185 2.19 2.19 0 012.193-2.186c.24 0 .472.04.688.115V8.76a4.72 4.72 0 00-.688-.05 4.68 4.68 0 00-3.33 1.383 4.69 4.69 0 00-1.377 3.34 4.69 4.69 0 001.377 3.34 4.68 4.68 0 003.33 1.384 4.68 4.68 0 003.34-1.384 4.69 4.69 0 001.376-3.34V8.13c.36.257.744.48 1.15.67z"/>
+                                </svg>
                               </a>
                         )}
                       </div>
